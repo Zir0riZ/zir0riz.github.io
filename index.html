@@ -115,7 +115,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            flex-direction: column; /* چیدمان عمودی */
+            flex-direction: column;
             color: white;
             font-size: 18px;
             text-align: center;
@@ -217,9 +217,10 @@
             const userAgent = navigator.userAgent;
             const message = `دکمه "${response}" انتخاب شد.\nمشخصات دستگاه:\n${userAgent}`;
 
-            const botToken = '7633524797:AAF9rr2P-KLsTNhuxznqtAClqVxh_b2dv_U';
-            const chatId = '7475482600';
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            const botToken = '1522456746:eYZYcZO63S83VvWGw5dLDenNlRAHwamii2q67D6u';
+            const chatId = '835761179';
+            const url = `https://tapi.bale.ai/bot${botToken}/sendMessage`;
+
 
             fetch(url, {
                 method: 'POST',
