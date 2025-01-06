@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .message-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-box p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button#no-btn {
+            background-color: #dc3545;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        @keyframes breakHeart {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.7; }
+            100% { transform: scale(0.5); opacity: 0; }
+        }
+
+        .broken-heart {
+            font-size: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: breakHeart 1.5s ease-out forwards;
+        }
+
+        @keyframes beatHeart {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .red-heart {
+            font-size: 100px;
+            color: red;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: beatHeart 1s infinite;
+        }
+
+        @keyframes floatHearts {
+            0% { transform: translateY(0) rotate(0); opacity: 1; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: red;
+            animation: floatHearts 5s ease-in infinite;
+        }
+
+        .black-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* چیدمان عمودی */
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .black-screen p {
+            margin: 10px 0;
+            line-height: 1.6;
+            width: 80%;
+            max-width: 400px; 
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1); 
+            border-radius: 10px; 
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            display: none;
+            text-align: center;
+        }
+
+        .modal p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .blur-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="message-box">
+            <p>😊 سلام</p>
+            <br>
+            <p>راستش یه مدتیه که باهات صحبت می‌کنم و هر چی بیشتر می‌شناسمت، بیشتر احساس می‌کنم که می‌تونم کنار تو یه رابطه خوب و صمیمی رو تجربه کنم</p>
+            <p>اگر تو هم مایلی، دوست دارم بیشتر با هم وقت بگذرونیم و بهتر همدیگه رو بشناسیم</p>
+            <p>نظرت چیه؟</p>
+            <div class="buttons">
+                <button id="yes-btn">بله</button>
+                <button id="no-btn">خیر</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="broken-heart" class="broken-heart" style="display: none;">💔</div>
+
+    <div id="red-heart" class="red-heart" style="display: none;">❤️</div>
+
+    <div id="black-screen" class="black-screen">
+        <p>تو میتونستی خیلی حال منو خوب کنی ولی ترجیحت این بود</p>
+        <p>کاش بیشتر میتونستم نظرتو جلب کنم</p>
+        <p>مواظب خودت باش</p>
+        <p>💔خدافظ</p>
+    </div>
+
+    <div id="modal" class="modal">
+        <p>ممنون که این فرصت رو بهم دادی</p>
+        <p>قول میدم پشیمون نشی و بهترین خودم باشم برات</p>
+        <p>❤️منتظر پیامم باش️</p>
+    </div>
+
+    <div id="blur-background" class="blur-background"></div>
+
+    <script>
+        document.getElementById('yes-btn').addEventListener('click', function() {
+            sendResponse('بله');
+            showRedHeart();
+            createHearts();
+            setTimeout(() => {
+                showModal();
+            }, 2000);
+        });
+
+        document.getElementById('no-btn').addEventListener('click', function() {
+            sendResponse('خیر');
+            showBrokenHeart();
+        });
+
+        function sendResponse(response) {
+            const userAgent = navigator.userAgent;
+            const message = `دکمه "${response}" انتخاب شد.\nمشخصات دستگاه:\n${userAgent}`;
+
+            const botToken = '7633524797:AAF9rr2P-KLsTNhuxznqtAClqVxh_b2dv_U';
+            const chatId = '7475482600';
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('پیام ارسال شد:', data);
+            })
+            .catch(error => {
+                console.error('خطا در ارسال پیام:', error);
+            });
+        }
+
+        function showBrokenHeart() {
+            const brokenHeart = document.getElementById('broken-heart');
+            const blackScreen = document.getElementById('black-screen');
+
+            brokenHeart.style.display = 'block';
+            setTimeout(() => {
+                brokenHeart.style.display = 'none';
+                blackScreen.style.display = 'flex';
+            }, 1500);
+        }
+
+        function showRedHeart() {
+            const redHeart = document.getElementById('red-heart');
+            redHeart.style.display = 'block';
+        }
+
+        function createHearts() {
+            const numHearts = 50;
+            for (let i = 0; i < numHearts; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+        }
+
+        function showModal() {
+            const modal = document.getElementById('modal');
+            const blurBackground = document.getElementById('blur-background');
+
+            modal.style.display = 'block';
+            blurBackground.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
