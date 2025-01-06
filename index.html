@@ -104,6 +104,7 @@
             animation: floatHearts 5s ease-in infinite;
         }
 
+        /* صفحه سیاه و متن */
         .black-screen {
             position: fixed;
             top: 0;
@@ -115,7 +116,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
+            flex-direction: column; /* چیدمان عمودی */
             color: white;
             font-size: 18px;
             text-align: center;
@@ -123,16 +124,18 @@
             padding: 20px;
         }
 
+        /* متن داخل صفحه سیاه */
         .black-screen p {
             margin: 10px 0;
             line-height: 1.6;
-            width: 80%;
-            max-width: 400px; 
+            width: 80%; /* عرض متن */
+            max-width: 400px; /* حداکثر عرض متن */
             padding: 10px;
-            background-color: rgba(255, 255, 255, 0.1); 
-            border-radius: 10px; 
+            background-color: rgba(255, 255, 255, 0.1); /* پس‌زمینه کمی روشن */
+            border-radius: 10px; /* لبه‌های گرد */
         }
 
+        /* باکس محاوره‌ای */
         .modal {
             position: fixed;
             top: 50%;
@@ -152,6 +155,7 @@
             line-height: 1.6;
         }
 
+        /* محو کردن صفحه پشت باکس */
         .blur-background {
             position: fixed;
             top: 0;
@@ -193,7 +197,7 @@
     <div id="modal" class="modal">
         <p>ممنون که این فرصت رو بهم دادی</p>
         <p>قول میدم پشیمون نشی و بهترین خودم باشم برات</p>
-        <p>❤️منتظر پیامم باش️</p>
+        <p>منتظر پیامم باش❤️</p>
     </div>
 
     <div id="blur-background" class="blur-background"></div>
@@ -212,35 +216,40 @@
             sendResponse('خیر');
             showBrokenHeart();
         });
-
         function sendResponse(response) {
             const userAgent = navigator.userAgent;
             const message = `دکمه "${response}" انتخاب شد.\nمشخصات دستگاه:\n${userAgent}`;
-
-            const botToken = '1522456746:eYZYcZO63S83VvWGw5dLDenNlRAHwamii2q67D6u';
-            const chatId = '835761179';
-            const url = `https://tapi.bale.ai/bot%3C${botToken}%3E/Message`;
-
-
-            fetch(url, {
+        
+            const botToken = '1522456746:eYZYcZO63S83VvWGw5dLDenNlRAHwamii2q67D6u'; // توکن ربات بله
+            const chatId = '835761179'; // آیدی چت
+            const url = `https://tapi.bale.ai/bot${botToken}/sendMessage`; // آدرس API بله
+        
+            const requestOptions = {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({
                     chat_id: chatId,
-                    text: message
+                    text: message // مطمئن شوید که این فیلد خالی نیست
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('پیام ارسال شد:', data);
-            })
-            .catch(error => {
-                console.error('خطا در ارسال پیام:', error);
-            });
+            };
+        
+            fetch(url, requestOptions)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('خطا در پاسخ سرور: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('پیام ارسال شد:', data);
+                })
+                .catch(error => {
+                    console.error('خطا در ارسال پیام:', error);
+                });
         }
-
         function showBrokenHeart() {
             const brokenHeart = document.getElementById('broken-heart');
             const blackScreen = document.getElementById('black-screen');
